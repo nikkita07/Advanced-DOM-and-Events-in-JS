@@ -9,7 +9,7 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
 const openModal = function (e) {
-  // e.preventDefault();
+  e.preventDefault();
   modal.classList.remove('hidden');
   overlay.classList.remove('hidden');
 };
@@ -19,8 +19,12 @@ const closeModal = function () {
   overlay.classList.add('hidden');
 };
 
-for (let i = 0; i < btnsOpenModal.length; i++)
-  btnsOpenModal[i].addEventListener('click', openModal);
+btnsOpenModal.forEach((btn)=>{
+btn.addEventListener('click',openModal);
+})
+
+// for (let i = 0; i < btnsOpenModal.length; i++)
+//   btnsOpenModal[i].addEventListener('click', openModal);
 
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
@@ -29,4 +33,35 @@ document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
   }
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//ways to select the elements in the page 
+console.log(document.documentElement);
+console.log(document.head);
+console.log(document.body);
+
+
+const header = document.querySelector('.header');
+const allSections = document.querySelectorAll('section');
+console.log(allSections); //return HTML collection
+const section1 = document.getElementById('section--1');
+console.log(section1);
+const allButtons = document.getElementsByTagName('button');
+console.log(allButtons);//return HTML collection
+
+
+const message = document.createElement('div');
+message.classList.add('cookie-message');
+message.innerHTML = " We use cookies for improved functionality and analytics . <button class = 'btn btn--close-cookies'>Got it!</button/>"
+
+// header.prepend(message);
+header.append(message);
+// header.before(message);
+//header.after(message);
+
+
+//deleting element 
+document.querySelector('.btn--close-cookie').addEventListener('click',()=>{
+  message.remove();
 });
